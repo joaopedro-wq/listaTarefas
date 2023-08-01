@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('tarefas.db');
-
+const path = require('path');
 const app = express();
 const port = process.env.PORT || 3000; 
 
@@ -17,12 +17,12 @@ app.use((req, res, next) => {
   next();
 });
 
-const path = require('path');
+
 
 // Configurar o middleware para servir arquivos estáticos na pasta "public"
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Rota para a página inicial
+
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
@@ -88,5 +88,3 @@ app.delete('/api/tarefas/:id', (req, res) => {
 app.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}`);
 });
-
-
