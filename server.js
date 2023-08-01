@@ -17,18 +17,15 @@ app.use((req, res, next) => {
   next();
 });
 
-// Definir rota para obter todas as tarefas
-app.get('/api/tarefas', (req, res) => {
-  db.all('SELECT * FROM tarefas ORDER BY ordem_apresentacao', (err, rows) => {
-    if (err) {
-      console.error(err.message);
-      res.status(500).json({ error: 'Erro ao buscar as tarefas' });
-    } else {
-      res.json(rows);
-    }
-  });
-});
+const path = require('path');
 
+// Configurar o middleware para servir arquivos estáticos na pasta "public"
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Rota para a página inicial
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
 
 // Definir rota para adicionar uma nova tarefa
 app.post('/api/tarefas', (req, res) => {
