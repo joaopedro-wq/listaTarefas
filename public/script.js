@@ -9,7 +9,7 @@ function excluirTarefa(idTarefa) {
   
   const confirmacao = window.confirm('Tem certeza que deseja excluir esta tarefa?');
   if (confirmacao) {
-    axios.delete(`http://localhost:3000/api/tarefas/${idTarefa}`)
+    axios.get('https://listatarefasfatto1.herokuapp.com/api/tarefas')${idTarefa}`)
       .then(response => {
         console.log('Tarefa excluída com sucesso:', response.data);
         carregarTarefas(); 
