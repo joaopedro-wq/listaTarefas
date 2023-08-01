@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Lista de Tarefas</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+</head>
+<body>
+  <header class="header">
+    
+    <div class="logo">
+      <i class="fas fa-tasks"></i>
+      <span >Lista de Tarefas</span>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Página Inicial</a></li>
+          <li><a href="sobre.html">Sobre</a></li>
+          <li><a href="contato.html">Contato</a></li
+      </ul>
+    </nav>
+  </header>
+  
+  <div class="container" style="margin-bottom: 175px;">
+    <h1>Lista de Tarefas</h1>
+    <form id="formularioTarefa">
+      <div class="form-group">
+        <label for="nomeTarefa">Nome da Tarefa:</label>
+        <input type="text" id="nomeTarefa" required>
+      </div>
+      <div class="form-group">
+        <label for="custoTarefa">Custo (R$):</label>
+        <input type="number" id="custoTarefa" step="0.01" min="0" required>
+      </div>
+      <div class="form-group">
+        <label for="dataLimiteTarefa">Data Limite:</label>
+        <input type="date" id="dataLimiteTarefa" required>
+      </div>
+      <button class="btnAdicionar" type="submit">Adicionar Tarefa</button>
+    </form>
+
+<table class="tabela-tarefas">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nome</th>
+      <th>Custo R$ </th>
+      <th>Data Limite</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+
+</table>
+<ul id="listaTarefas">
+  
+</ul>
+    <div id="mensagemErro" style="display: none; color: red;"></div>
+
+
+    <div id="formEditarTarefa" style="display: none;">
+      <h2>Editar Tarefa</h2>
+      <form id="formEditar">
+        <div class="form-group">
+          <label for="editarNomeTarefa">Nome da Tarefa:</label>
+          <input type="text" id="editarNomeTarefa" required>
+        </div>
+        <div class="form-group">
+          <label for="editarCustoTarefa">Custo (R$):</label>
+          <input type="number" id="editarCustoTarefa" step="0.01" min="0" required>
+        </div>
+        <div class="form-group">
+          <label for="editarDataLimiteTarefa">Data Limite:</label>
+          <input type="date" id="editarDataLimiteTarefa" required>
+        </div>
+       
+        
+        <input type="hidden" id="idTarefaEditar">
+        <button id="buttonEdicao" class="btn-Salvar" type="submit">Salvar Alterações</button>
+        <button id="buttonEdicao" class="btn-Cancelar" type="button" onclick="fecharFormEditar()">Cancelar</button>
+      </form>
+    </div>
+    
+  </div>
+  <footer class="footer">
+    
+      <p>&copy; 2023 Todos os direitos reservados.</p>
+      <p>Entre em contato: joao.bandeiraoliveira@gmail.com</p>
+    
+  </footer>
+    
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
+
+  <script src="script.js" defer></script>
+
+
+</body>
+</html>

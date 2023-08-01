@@ -1,0 +1,305 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #105f6d;
+  color: #fff;
+  
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  margin-left: 50px;
+}
+
+.logo i {
+  font-size: 30px;
+  margin-right: 8px;
+  
+}
+
+.header:hover .logo i {
+  animation: rotateLogo 1s ease-in-out;
+}
+
+
+
+@keyframes rotateLogo {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-10deg);
+  }
+  50% {
+    transform: rotate(10deg);
+  }
+  75% {
+    transform: rotate(-5deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+
+
+.header ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.header li {
+  border: none;
+  margin-right: 20px;
+}
+
+.header a {
+  text-decoration: none;
+  color: #fff;
+}
+
+.header a:hover {
+  color: #ffeeba;
+}
+
+
+
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+
+
+.texto-descricao {
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  text-align: justify;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #cfdee0;
+  background-color: #0d4444;
+  border-radius: 5px;
+}
+
+
+.form-container {
+  background-color: #f2f2f2;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.form-container h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #0c8196;
+}
+
+.form-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  flex: 0 0 150px;
+  font-weight: bold;
+}
+
+.form-group input {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.form-group input[type="date"] {
+  width: 100%;
+}
+
+.btnAdicionar {
+  background-color: #1b7281;
+  color: #fff;
+  padding: 10px ;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 5px;
+}
+.btnAdicionar:hover {
+  background-color: #328397;
+}
+
+table {
+  width: 624px;
+  border-collapse: collapse;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  background-color: #ece3e3e7;
+  border-radius: 5px;
+
+}
+
+th, td {
+  padding: 10px;
+  text-align: center;
+  float: left;
+  margin-right:45px ;
+}
+
+
+th {
+  
+  font-weight: bold;
+  border-radius: 5px;
+  
+}
+
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+
+
+
+li, span {
+  margin-right: 52px;
+  align-items: center;
+  display: flex;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.tarefa-custo-alto {
+  background-color: #0fa3a3;
+  width: 100%;
+}
+
+
+.botoes-tarefa, button {
+  display: flex;
+  background: none;
+  border: none;
+  cursor: pointer;
+  
+}
+
+
+#editar-btn i {
+  font-size: 15px;
+ 
+  color: #0d4444;
+}
+
+#excluir-btn i {
+  font-size: 15px;
+  margin-right: 5px;
+  color: #6b0e0e;
+  
+}
+
+Firebase Hosting
+.drag-handle {
+  cursor: grab;
+}
+
+#buttonEdicao{
+display: flex;
+float: left;
+
+
+}
+.btn-Salvar {
+  display: flex;
+  background-color: #276879;
+  color: #fff;
+  padding: 10px ;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  
+}
+
+.btn-Salvar:hover {
+
+  background-color: #328397;
+}
+
+
+.btn-Cancelar {
+  display: flex;
+  background-color: #7c130b;
+  margin-left: 5px;
+  color: #fff;
+  padding: 10px ;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+ 
+}
+
+.btn-Cancelar:hover{
+  background-color: #aa220f;
+}
+
+
+
+footer {
+  background-color: #222;
+  color: #fff;
+  padding: 10px;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  font-size: 14px;
+  z-index: 10;
+}
+
+.informacoes-contato p {
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+
+.textoa{
+  line-height: 1.5;
+}
+.informacoes-contato a {
+ 
+  color: #0c8196;
+  text-decoration: none;
+}
+
+.informacoes-contato a:hover {
+  
+  text-decoration: underline;
+}
+
+p:last-child {
+  
+  margin-bottom: 20px;
+}
