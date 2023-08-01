@@ -9,7 +9,7 @@ function excluirTarefa(idTarefa) {
   
   const confirmacao = window.confirm('Tem certeza que deseja excluir esta tarefa?');
   if (confirmacao) {
-    axios.get('https://listatarefasfatto1.herokuapp.com/api/tarefas')${idTarefa}`)
+    axios.delete(`https://listatarefasfatto1.herokuapp.com/api/tarefas/${idTarefa}`)
       .then(response => {
         console.log('Tarefa excluída com sucesso:', response.data);
         carregarTarefas(); 
@@ -47,7 +47,7 @@ function drop(event) {
 }
 
 function carregarTarefas() {
-  axios.get('http://localhost:3000/api/tarefas')
+  axios.get('https://listatarefasfatto1.herokuapp.com/api/tarefas')
     .then(response => {
       const tarefas = response.data;
       listaTarefas.innerHTML = '';
@@ -100,7 +100,7 @@ function adicionarTarefa(event) {
   const dataLimiteTarefa = document.getElementById('dataLimiteTarefa').value;
 
   // Verificar se já existe uma tarefa com o mesmo nome
-  axios.get('http://localhost:3000/api/tarefas')
+  axios.get('https://listatarefasfatto1.herokuapp.com/api/tarefas')
     .then(response => {
       const tarefas = response.data;
       const tarefaExistente = tarefas.find(tarefa => tarefa.nome === nomeTarefa);
@@ -217,7 +217,7 @@ function editarTarefa(idTarefa) {
 
 
 function atualizarTarefa(idTarefa, dadosTarefa) {
-  axios.put(`http://localhost:3000/api/tarefas/${idTarefa}`, dadosTarefa)
+  axios.put(`https://listatarefasfatto1.herokuapp.com/api/tarefas/${idTarefa}`, dadosTarefa)
     .then(response => {
       console.log('Tarefa atualizada com sucesso:', response.data);
       carregarTarefas();
