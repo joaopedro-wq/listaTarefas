@@ -118,7 +118,7 @@ function adicionarTarefa(event) {
         dataLimite: dataLimiteTarefa,
       };
 
-      axios.post('https://listatarefasfatto1-9765e8130ba4.herokuapp.com/', dadosTarefa)
+      axios.post('https://listatarefasfatto1-9765e8130ba4.herokuapp.com/api/tarefas', dadosTarefa)
         .then(response => {
           console.log('Tarefa adicionada com sucesso:', response.data);
           carregarTarefas();
