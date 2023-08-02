@@ -9,7 +9,7 @@ function excluirTarefa(idTarefa) {
   
   const confirmacao = window.confirm('Tem certeza que deseja excluir esta tarefa?');
   if (confirmacao) {
-    axios.delete(`https://listatarefasfatto1-9765e8130ba4.herokuapp.com/api/tarefas/${idTarefa}`)
+    axios.delete(`https://listatarefasfatto1-9765e8130ba4.herokuapp.com/${idTarefa}`)
       .then(response => {
         console.log('Tarefa excluída com sucesso:', response.data);
         carregarTarefas(); 
@@ -47,7 +47,7 @@ function drop(event) {
 }
 
 function carregarTarefas() {
-  axios.get('https://listatarefasfatto1-9765e8130ba4.herokuapp.com/api/tarefas')
+  axios.get('https://listatarefasfatto1-9765e8130ba4.herokuapp.com/')
     .then(response => {
       const tarefas = response.data;
       listaTarefas.innerHTML = '';
@@ -100,7 +100,7 @@ function adicionarTarefa(event) {
   const dataLimiteTarefa = document.getElementById('dataLimiteTarefa').value;
 
   // Verificar se já existe uma tarefa com o mesmo nome
-  axios.get('https://listatarefasfatto1-9765e8130ba4.herokuapp.com/api/tarefas')
+  axios.get('https://listatarefasfatto1-9765e8130ba4.herokuapp.com/')
     .then(response => {
       const tarefas = response.data;
       const tarefaExistente = tarefas.find(tarefa => tarefa.nome === nomeTarefa);
@@ -117,7 +117,7 @@ function adicionarTarefa(event) {
         dataLimite: dataLimiteTarefa,
       };
 
-      axios.post('https://listatarefasfatto1-9765e8130ba4.herokuapp.com/api/tarefas', dadosTarefa)
+      axios.post('https://listatarefasfatto1-9765e8130ba4.herokuapp.com/', dadosTarefa)
         .then(response => {
           console.log('Tarefa adicionada com sucesso:', response.data);
           carregarTarefas();
@@ -170,7 +170,7 @@ function exibirFormEditar(idTarefa, nomeTarefa, custoTarefa, dataLimiteTarefa) {
     const novaDataLimiteTarefa = document.getElementById('editarDataLimiteTarefa').value;
 
    
-    axios.get('https://listatarefasfatto1-9765e8130ba4.herokuapp.com/api/tarefas')
+    axios.get('https://listatarefasfatto1-9765e8130ba4.herokuapp.com/')
       .then(response => {
         const tarefas = response.data;
         const tarefaExistente = tarefas.find(tarefa => tarefa.nome === novoNomeTarefa && tarefa.id !== idTarefa);
@@ -204,7 +204,7 @@ function editarTarefa(idTarefa) {
   console.log('Exibindo formulário de edição para a tarefa de ID:', idTarefa);
 
  
-  axios.get(`https://listatarefasfatto1-9765e8130ba4.herokuapp.com/api/tarefas/${idTarefa}`)
+  axios.get(`https://listatarefasfatto1-9765e8130ba4.herokuapp.com/${idTarefa}`)
     .then(response => {
       const tarefa = response.data;
       exibirFormEditar(tarefa.id, tarefa.nome, tarefa.custo, tarefa.dataLimite, tarefa.ordemApresentacao);
@@ -217,7 +217,7 @@ function editarTarefa(idTarefa) {
 
 
 function atualizarTarefa(idTarefa, dadosTarefa) {
-  axios.put(`https://listatarefasfatto1-9765e8130ba4.herokuapp.com/api/tarefas/${idTarefa}`, dadosTarefa)
+  axios.put(`https://listatarefasfatto1-9765e8130ba4.herokuapp.com/${idTarefa}`, dadosTarefa)
     .then(response => {
       console.log('Tarefa atualizada com sucesso:', response.data);
       carregarTarefas();
