@@ -20,8 +20,16 @@ app.use((req, res, next) => {
 // Configurar o middleware para servir arquivos estáticos na pasta "public"
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+// Definir rota para obter todas as tarefas
+app.get('/tarefas', (req, res) => {
+  db.all('SELECT * FROM tarefas ORDER BY ordem_apresentacao', (err, rows) => {
+    if (err) {
+      console.error(err.message);
+      res.status(500).json({ error: 'Erro ao obter as tarefas' });
+    } else {
+      res.json(rows);
+    }
+  });
 });
 
 // Definir rota para adicionar uma nova tarefa
