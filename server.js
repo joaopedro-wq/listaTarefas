@@ -28,7 +28,7 @@ app.get('/', (req, res) => {
 });
 
 // Definir rota para adicionar uma nova tarefa
-app.post('/api/tarefas', (req, res) => {
+app.post('/', (req, res) => {
   const { nome, custo, dataLimite } = req.body;
 
   // Obter o número atual de tarefas na tabela
@@ -53,7 +53,7 @@ app.post('/api/tarefas', (req, res) => {
 
 
 // Definir rota para atualizar uma tarefa pelo ID
-app.put('/api/tarefas/:id', (req, res) => {
+app.put('/:id', (req, res) => {
   const idTarefa = req.params.id;
   const { nome, custo, dataLimite, ordemApresentacao } = req.body;
   const query = 'UPDATE tarefas SET nome = ?, custo = ?, data_limite = ? WHERE id = ?';
@@ -71,7 +71,7 @@ app.put('/api/tarefas/:id', (req, res) => {
 
 
 // Definir rota para excluir uma tarefa pelo ID
-app.delete('/api/tarefas/:id', (req, res) => {
+app.delete('/:id', (req, res) => {
   const idTarefa = req.params.id;
   const query = 'DELETE FROM tarefas WHERE id = ?';
   db.run(query, [idTarefa], function (err) {
