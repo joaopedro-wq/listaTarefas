@@ -101,7 +101,7 @@ function adicionarTarefa(event) {
   const dataLimiteTarefa = document.getElementById('dataLimiteTarefa').value;
 
   // Verificar se já existe uma tarefa com o mesmo nome
-  axios.get('https://listatarefasfatto1-9765e8130ba4.herokuapp.com/')
+     axios.get('https://listatarefasfatto1-9765e8130ba4.herokuapp.com/api/tarefas')
     .then(response => {
       const tarefas = response.data;
       const tarefaExistente = tarefas.find(tarefa => tarefa.nome === nomeTarefa);
@@ -171,7 +171,7 @@ function exibirFormEditar(idTarefa, nomeTarefa, custoTarefa, dataLimiteTarefa) {
     const novaDataLimiteTarefa = document.getElementById('editarDataLimiteTarefa').value;
 
    
-    axios.get('https://listatarefasfatto1-9765e8130ba4.herokuapp.com/')
+       axios.get('https://listatarefasfatto1-9765e8130ba4.herokuapp.com/api/tarefas')
       .then(response => {
         const tarefas = response.data;
         const tarefaExistente = tarefas.find(tarefa => tarefa.nome === novoNomeTarefa && tarefa.id !== idTarefa);
@@ -205,7 +205,7 @@ function editarTarefa(idTarefa) {
   console.log('Exibindo formulário de edição para a tarefa de ID:', idTarefa);
 
  
-  axios.get(`https://listatarefasfatto1-9765e8130ba4.herokuapp.com/${idTarefa}`)
+    axios.get('https://listatarefasfatto1-9765e8130ba4.herokuapp.com/api/tarefas/${idTarefa}`)
     .then(response => {
       const tarefa = response.data;
       exibirFormEditar(tarefa.id, tarefa.nome, tarefa.custo, tarefa.dataLimite, tarefa.ordemApresentacao);
