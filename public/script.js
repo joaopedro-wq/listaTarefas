@@ -122,6 +122,11 @@ function adicionarTarefa(event) {
         .then(response => {
           console.log('Tarefa adicionada com sucesso:', response.data);
           carregarTarefas();
+
+
+          document.getElementById('nomeTarefa').value = '';
+          document.getElementById('custoTarefa').value = '';
+          document.getElementById('dataLimiteTarefa').value = '';
         })
         .catch(error => {
           console.error('Erro ao adicionar a tarefa:', error);
