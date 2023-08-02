@@ -17,18 +17,15 @@ app.use((req, res, next) => {
   next();
 });
 
-
-
 // Configurar o middleware para servir arquivos estáticos na pasta "public"
 app.use(express.static(path.join(__dirname, 'public')));
-
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 // Definir rota para adicionar uma nova tarefa
-app.post('/', (req, res) => {
+app.post('/api/tarefas', (req, res) => {
   const { nome, custo, dataLimite } = req.body;
 
   // Obter o número atual de tarefas na tabela
@@ -50,7 +47,6 @@ app.post('/', (req, res) => {
     }
   });
 });
-
 
 // Definir rota para atualizar uma tarefa pelo ID
 app.put('/:id', (req, res) => {
