@@ -47,7 +47,7 @@ function drop(event) {
 }
 
 function carregarTarefas() {
-  axios.get('https://listatarefasfatto1-9765e8130ba4.herokuapp.com/')
+   axios.get('https://listatarefasfatto1-9765e8130ba4.herokuapp.com/api/tarefas')
     .then(response => {
       const tarefas = response.data;
       console.log('Dados recebidos do servidor:', tarefas); 
