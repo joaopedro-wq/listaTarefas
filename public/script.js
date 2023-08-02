@@ -104,7 +104,7 @@ function adicionarTarefa(event) {
      axios.get('https://listatarefasfatto1-9765e8130ba4.herokuapp.com/api/tarefas')
     .then(response => {
       const tarefas = response.data;
-      const tarefaExistente = tarefas.find(tarefa => tarefa.nome === nomeTarefa);
+      const tarefaExistente = tarefas.find(tarefa => tarefa.nome.toLowerCase() === nomeTarefa.toLowerCase());
       if (tarefaExistente) {
         const mensagem = `Já existe uma tarefa com o mesmo nome: ${nomeTarefa}`;
         exibirMensagemErro(mensagem);
