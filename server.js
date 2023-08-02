@@ -21,7 +21,7 @@ app.use((req, res, next) => {
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Definir rota para obter todas as tarefas
-app.get('/tarefas', (req, res) => {
+app.get('/api/tarefas', (req, res) => {
   db.all('SELECT * FROM tarefas ORDER BY ordem_apresentacao', (err, rows) => {
     if (err) {
       console.error(err.message);
