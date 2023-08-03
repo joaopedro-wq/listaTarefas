@@ -178,9 +178,7 @@ tr {
   background-color: #f2f2f2;
 }
 
-tr:nth-child(even) {
-  background-color: #ece3e3e7;
-}
+
 
 
 td:nth-child(2) {
