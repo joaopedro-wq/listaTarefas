@@ -46,49 +46,51 @@ function drop(event) {
   }
 }
 
+
+
 function carregarTarefas() {
-   axios.get('https://listatarefasfatto1-9765e8130ba4.herokuapp.com/api/tarefas')
+  axios
+    .get('https://listatarefasfatto1-9765e8130ba4.herokuapp.com/api/tarefas')
     .then(response => {
       const tarefas = response.data;
-      console.log('Dados recebidos do servidor:', tarefas); 
-      listaTarefas.innerHTML = '';
-      tarefas.forEach((tarefa, index) => { 
-        const li = document.createElement('li');
-        li.dataset.index = index;
-        li.draggable = true;
-        li.ondragstart = dragStart;
-        li.ondragover = dragOver;
-        li.ondrop = drop;
-        li.innerHTML = `
-        <span class="drag-handle"> ${tarefa.id}</span>
-         
-          <span>${tarefa.nome}</span>
-          <span>${tarefa.custo.toFixed(2)}</span>
-          <span>${formatarData(tarefa.data_limite)}</span>
-         
-          <div class="botoes-tarefa">
-          <button id="editar-btn" onclick="exibirFormEditar(${tarefa.id}, '${tarefa.nome}', ${tarefa.custo}, '${tarefa.dataLimite}')">
-          <i class="fas fa-pencil-alt"></i> Editar
-        </button>
-        <button id="excluir-btn" onclick="excluirTarefa(${tarefa.id})">
-          <i class="fas fa-trash"></i> Excluir
-        </button>
-          </div>
-
-         
+      console.log('Dados recebidos do servidor:', tarefas);
+      const listaTarefas = document.getElementById('listaTarefas');
+      listaTarefas.innerHTML = ''; // Limpar o conteúdo anterior antes de adicionar as novas tarefas
+      tarefas.forEach((tarefa, index) => {
+        const tr = document.createElement('tr');
+        tr.dataset.index = index;
+        tr.draggable = true;
+        tr.ondragstart = dragStart;
+        tr.ondragover = dragOver;
+        tr.ondrop = drop;
+        tr.dataset.ordemApresentacao = tarefa.ordem_apresentacao; // Adiciona o atributo data-ordem-apresentacao
+        tr.innerHTML = `
+          <td><span class="drag-handle">${tarefa.id}</span></td>
+          <td>${tarefa.nome}</td>
+          <td>${tarefa.custo.toFixed(2)}</td>
+          <td>${formatarData(tarefa.data_limite)}</td>
+          <td>
+            <div class="botoes-tarefa">
+              <button id="editar-btn" onclick="exibirFormEditar(${tarefa.id}, '${tarefa.nome}', ${tarefa.custo}, '${tarefa.dataLimite}')">
+                <i class="fas fa-pencil-alt"></i> Editar
+              </button>
+              <button id="excluir-btn" onclick="excluirTarefa(${tarefa.id})">
+                <i class="fas fa-trash"></i> Excluir
+              </button>
+             
+          </td>
         `;
 
         if (tarefa.custo >= 1000) {
-          li.classList.add('tarefa-custo-alto');
+          tr.classList.add('tarefa-custo-alto');
         }
 
-
-        listaTarefas.appendChild(li);
+        listaTarefas.appendChild(tr);
       });
     })
     .catch(error => {
       console.error('Erro ao obter as tarefas:', error);
-    });  
+    });
 }
 
 
