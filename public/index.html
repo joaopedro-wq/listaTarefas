@@ -31,7 +31,7 @@
       </div>
       <div class="form-group">
         <label for="custoTarefa">Custo (R$):</label>
-        <input type="number" id="custoTarefa" step="0.01" min="0" required>
+        <input type="number" id="custoTarefa" step="0.01" min="0" max="99999999.99" required>
       </div>
       <div class="form-group">
         <label for="dataLimiteTarefa">Data Limite:</label>
@@ -40,21 +40,22 @@
       <button class="btnAdicionar" type="submit">Adicionar Tarefa</button>
     </form>
 
-<table class="tabela-tarefas">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Nome</th>
-      <th>Custo R$ </th>
-      <th>Data Limite</th>
-      <th>Ações</th>
-    </tr>
-  </thead>
-
-</table>
-<ul id="listaTarefas">
-  
-</ul>
+    <div class="table-container">
+      <table class="tabela-tarefas">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Custo R$</th>
+            <th>Data Limite</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody id="listaTarefas">
+          
+        </tbody>
+      </table>
+    </div>
     <div id="mensagemErro" style="display: none; color: red;"></div>
 
 
@@ -65,9 +66,10 @@
           <label for="editarNomeTarefa">Nome da Tarefa:</label>
           <input type="text" id="editarNomeTarefa" required>
         </div>
+        
         <div class="form-group">
           <label for="editarCustoTarefa">Custo (R$):</label>
-          <input type="number" id="editarCustoTarefa" step="0.01" min="0" required>
+          <input type="number" id="editarCustoTarefa" step="0.01" min="0" max="99999999.99" required>
         </div>
         <div class="form-group">
           <label for="editarDataLimiteTarefa">Data Limite:</label>

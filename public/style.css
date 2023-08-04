@@ -1,6 +1,7 @@
 body {
   font-family: Arial, sans-serif;
   margin: 0;
+  
 }
 
 .header {
@@ -8,7 +9,7 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 10px;
-  background-color: #105f6d;
+  background-color: #24628b;
   color: #fff;
   
 }
@@ -16,7 +17,7 @@ body {
 .logo {
   display: flex;
   align-items: center;
-  margin-left: 50px;
+  margin-left: 38px;
 }
 
 .logo i {
@@ -96,7 +97,7 @@ h1 {
   text-align: center;
   margin-bottom: 20px;
   color: #cfdee0;
-  background-color: #0d4444;
+  background-color: #24628b;
   border-radius: 5px;
 }
 
@@ -149,53 +150,73 @@ h1 {
   background-color: #328397;
 }
 
+.table-container {
+  overflow-x: auto;
+  max-width: 100%;
+}
+
 table {
-  width: 624px;
+  width: 100%;
   border-collapse: collapse;
   margin-top: 30px;
   margin-bottom: 20px;
   background-color: #ece3e3e7;
   border-radius: 5px;
-
 }
 
 th, td {
   padding: 10px;
   text-align: center;
-  float: left;
-  margin-right:45px ;
+  border: 1px solid #ccc;
 }
-
 
 th {
-  
   font-weight: bold;
-  border-radius: 5px;
-  
 }
+
+tr {
+  background-color: #f2f2f2;
+}
+
+
+
+td:nth-child(2) {
+  text-align: left;
+  
+  padding: 20px;
+}
+
+td:last-child {
+  
+  text-align: center;
+}
+
 
 ul {
   padding: 0;
   list-style: none;
+  
 }
 
-
-
-
-li, span {
-  margin-right: 52px;
-  align-items: center;
+li {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding: 10px;
   border-radius: 5px;
   border: none;
   margin-bottom: 10px;
-  width: 100%;
+  
+  
+}
+
+li span {
+  flex: 1;
+  margin-right: 15px;
 }
 
 .tarefa-custo-alto {
-  background-color: #0fa3a3;
-  width: 100%;
+  background-color: #0f8888;
 }
 
 

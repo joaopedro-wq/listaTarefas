@@ -2,9 +2,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('tarefas.db');
-
+const path = require('path');
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000; 
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -17,18 +17,20 @@ app.use((req, res, next) => {
   next();
 });
 
+// Configurar o middleware para servir arquivos estáticos na pasta "public"
+app.use(express.static(path.join(__dirname, 'public')));
+
 // Definir rota para obter todas as tarefas
 app.get('/api/tarefas', (req, res) => {
   db.all('SELECT * FROM tarefas ORDER BY ordem_apresentacao', (err, rows) => {
     if (err) {
       console.error(err.message);
-      res.status(500).json({ error: 'Erro ao buscar as tarefas' });
+      res.status(500).json({ error: 'Erro ao obter as tarefas' });
     } else {
       res.json(rows);
     }
   });
 });
-
 
 // Definir rota para adicionar uma nova tarefa
 app.post('/api/tarefas', (req, res) => {
@@ -42,25 +44,24 @@ app.post('/api/tarefas', (req, res) => {
     } else {
       const ordemApresentacao = row.total + 1; // Incrementar 1 para a nova tarefa
       const query = 'INSERT INTO tarefas (nome, custo, data_limite, ordem_apresentacao) VALUES (?, ?, ?, ?)';
-      db.run(query, [nome, custo, dataLimite, ordemApresentacao], function (err) {
-        if (err) {
-          console.error(err.message);
-          res.status(500).json({ error: 'Erro ao adicionar a tarefa' });
-        } else {
-          res.json({ id: this.lastID });
-        }
-      });
+db.run(query, [novoNomeTarefa, custo, dataLimite, ordemApresentacao], function (err) {
+  if (err) {
+    console.error(err.message);
+    res.status(500).json({ error: 'Erro ao adicionar a tarefa' });
+  } else {
+    res.json({ id: this.lastID });
+  }
+});
+
     }
   });
 });
 
-
 // Definir rota para atualizar uma tarefa pelo ID
-app.put('/api/tarefas/:id', (req, res) => {
+app.put('/:id', (req, res) => {
   const idTarefa = req.params.id;
-  const { nome, custo, dataLimite, ordemApresentacao } = req.body;
+  const { nome, custo, dataLimite } = req.body;
   const query = 'UPDATE tarefas SET nome = ?, custo = ?, data_limite = ? WHERE id = ?';
-
 
   db.run(query, [nome, custo, dataLimite, idTarefa], function (err) {
     if (err) {
@@ -74,7 +75,7 @@ app.put('/api/tarefas/:id', (req, res) => {
 
 
 // Definir rota para excluir uma tarefa pelo ID
-app.delete('/api/tarefas/:id', (req, res) => {
+app.delete('/:id', (req, res) => {
   const idTarefa = req.params.id;
   const query = 'DELETE FROM tarefas WHERE id = ?';
   db.run(query, [idTarefa], function (err) {
@@ -91,5 +92,3 @@ app.delete('/api/tarefas/:id', (req, res) => {
 app.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}`);
 });
-
-
