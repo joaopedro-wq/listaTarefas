@@ -53,7 +53,7 @@ function carregarTarefas() {
       const tarefas = response.data;
       console.log('Dados recebidos do servidor:', tarefas);
       const listaTarefas = document.getElementById('listaTarefas');
-      listaTarefas.innerHTML = ''; // Limpar o conteúdo anterior antes de adicionar as novas tarefas
+      listaTarefas.innerHTML = ''; 
       tarefas.forEach((tarefa, index) => {
         const tr = document.createElement('tr');
         tr.dataset.index = index;
@@ -61,36 +61,86 @@ function carregarTarefas() {
         tr.ondragstart = dragStart;
         tr.ondragover = dragOver;
         tr.ondrop = drop;
-        tr.dataset.ordemApresentacao = tarefa.ordemApresentacao;// Adiciona o atributo data-ordem-apresentacao
-  tr.innerHTML = `
-  <td><span class="drag-handle">${tarefa.id}</span></td>
-  <td>${decodeURIComponent(tarefa.nome)}</td>
-  <td>${tarefa.custo.toFixed(2)}</td>
-  <td>${formatarData(tarefa.data_limite)}</td>
-  <td>
-    <div class="botoes-tarefa">
-    <button id="editar-btn" data-nome="${(tarefa.nome)}" onclick="exibirFormEditar(${tarefa.id}, this.getAttribute('data-nome'), ${tarefa.custo}, '${tarefa.dataLimite}')">
-    <i class="fas fa-pencil-alt"></i> Editar
-  </button>
-      <button id="excluir-btn" onclick="excluirTarefa(${tarefa.id})">
-        <i class="fas fa-trash"></i> Excluir
-      </button>
-    </div>
-  </td>
-`;
+        tr.dataset.ordemApresentacao = tarefa.ordemApresentacao;
+        tr.innerHTML = `
+        <td><span class="drag-handle">${tarefa.id}</span></td>
+        <td>${decodeURIComponent(tarefa.nome)}</td>
+        <td>${tarefa.custo.toFixed(2)}</td>
+        <td>${formatarData(tarefa.data_limite)}</td>
+        <td>
+          <div class="botoes-tarefa">
+          <button class="move-up-btn" onclick="moverTarefa(this.closest('tr'), 'up')">
+          <i class="fas fa-chevron-up"></i> 
+        </button>
+            <button id="editar-btn" data-nome="${(tarefa.nome)}" onclick="exibirFormEditar(${tarefa.id}, this.getAttribute('data-nome'), ${tarefa.custo}, '${tarefa.dataLimite}')">
+              <i class="fas fa-pencil-alt"></i> Editar
+            </button>
+            <button id="excluir-btn" onclick="excluirTarefa(${tarefa.id})">
+              <i class="fas fa-trash"></i> Excluir
+            </button>
+          
+          <button class="move-down-btn" onclick="moverTarefa(this.closest('tr'), 'down')">
+            <i class="fas fa-chevron-down"></i> 
+          </button>
+          
 
+          </div>
+        </td>
+      `;
+
+      tr.querySelector('.move-up-btn').onclick = () => moverTarefa(index, 'up');
+      tr.querySelector('.move-down-btn').onclick = () => moverTarefa(index, 'down');
       
-        if (tarefa.custo >= 1000) {
-          tr.classList.add('tarefa-custo-alto');
-        }
+      if (tarefa.custo >= 1000) {
+        tr.classList.add('tarefa-custo-alto');
+      }
 
-        listaTarefas.appendChild(tr);
-      });
-    })
-    .catch(error => {
-      console.error('Erro ao obter as tarefas:', error);
+      listaTarefas.appendChild(tr);
     });
+  })
+  .catch(error => {
+    console.error('Erro ao obter as tarefas:', error);
+  });
 }
+
+function moverTarefa(index, direcao) {
+  const listaTarefas = document.getElementById('listaTarefas');
+  const tarefas = Array.from(listaTarefas.querySelectorAll('tbody tr'));
+
+  if ((direcao === 'up' && index > 0) || (direcao === 'down' && index < tarefas.length - 1)) {
+    const novaPosicao = direcao === 'up' ? index - 1 : index + 1;
+    const tarefa = tarefas[index];
+    const tarefaDestino = tarefas[novaPosicao];
+
+    listaTarefas.innerHTML = '';
+
+    // Trocar a ordem das tarefas no array
+    tarefas.splice(index, 1);
+    tarefas.splice(novaPosicao, 0, tarefa);
+
+    tarefas.forEach((tarefa, index) => {
+      tarefa.dataset.index = index; 
+      tarefa.querySelector('.move-up-btn').onclick = () => moverTarefa(index, 'up');
+      tarefa.querySelector('.move-down-btn').onclick = () => moverTarefa(index, 'down');
+      listaTarefas.appendChild(tarefa);
+    });
+  }
+}
+
+
+document.addEventListener('click', (event) => {
+  const target = event.target;
+  if (target.classList.contains('move-up-btn')) {
+    const tarefa = target.closest('tr');
+    const index = parseInt(tarefa.dataset.index);
+    moverTarefa(index, 'up');
+  } else if (target.classList.contains('move-down-btn')) {
+    const tarefa = target.closest('tr');
+    const index = parseInt(tarefa.dataset.index);
+    moverTarefa(index, 'down');
+  }
+});
+
 
 function adicionarTarefa(event) {
   event.preventDefault();
@@ -154,11 +204,13 @@ function formatarData(dataString) {
   return `${dia}/${mes}/${ano}`;
 }
 
+
 function exibirFormEditar(idTarefa, nomeTarefa, custoTarefa, dataLimiteTarefa) {
   document.getElementById('editarNomeTarefa').value = decodeURIComponent(nomeTarefa);
   document.getElementById('editarCustoTarefa').value = custoTarefa;
   document.getElementById('editarDataLimiteTarefa').value = dataLimiteTarefa;
   document.getElementById('idTarefaEditar').value = idTarefa;
+
   formEditarTarefa.style.display = 'block';
 
   formEditar.onsubmit = function(event) {
@@ -166,7 +218,7 @@ function exibirFormEditar(idTarefa, nomeTarefa, custoTarefa, dataLimiteTarefa) {
 
     const novoNomeTarefa = encodeURIComponent(document.getElementById('editarNomeTarefa').value);
     const novoCustoTarefa = parseFloat(document.getElementById('editarCustoTarefa').value);
-    const novaDataLimiteTarefa = document.getElementById('editarDataLimiteTarefa').value;
+    const novaDataLimiteTarefa = document.getElementById('editarNomeTarefa').value;
 
     axios.get('https://listatarefasfatto1-9765e8130ba4.herokuapp.com/api/tarefas')
       .then(response => {
@@ -197,6 +249,7 @@ function exibirFormEditar(idTarefa, nomeTarefa, custoTarefa, dataLimiteTarefa) {
 
 
 
+
 function editarTarefa(idTarefa) {
   console.log('Exibindo formulário de edição para a tarefa de ID:', idTarefa);
     axios.get('https://listatarefasfatto1-9765e8130ba4.herokuapp.com/api/tarefas')
@@ -208,6 +261,9 @@ function editarTarefa(idTarefa) {
       console.error('Erro ao obter os dados da tarefa:', error);
     });
 }
+
+
+
 
 
 function atualizarTarefa(idTarefa, dadosTarefa) {
