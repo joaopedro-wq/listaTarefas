@@ -227,8 +227,6 @@ function exibirFormEditar(idTarefa, nomeTarefa, custoTarefa, dataLimiteTarefa) {
     const novoCustoTarefa = parseFloat(document.getElementById('editarCustoTarefa').value);
     const novaDataLimiteTarefa = document.getElementById('editarDataLimiteTarefa').value;
 
-
-    
     axios.get('https://listatarefasfatto1-9765e8130ba4.herokuapp.com/api/tarefas')
       .then(response => {
         const tarefas = response.data;
@@ -241,7 +239,7 @@ function exibirFormEditar(idTarefa, nomeTarefa, custoTarefa, dataLimiteTarefa) {
         const dadosTarefa = {
           nome: novoNomeTarefa,
           custo: novoCustoTarefa,
-          dataLimite: formatarData(novaDataLimiteTarefa)
+          dataLimite: novaDataLimiteTarefa
         };
 
         atualizarTarefa(idTarefa, dadosTarefa);
@@ -253,6 +251,7 @@ function exibirFormEditar(idTarefa, nomeTarefa, custoTarefa, dataLimiteTarefa) {
       });
   };
 }
+
 
 
 
