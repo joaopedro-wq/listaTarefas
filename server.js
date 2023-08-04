@@ -44,15 +44,14 @@ app.post('/api/tarefas', (req, res) => {
     } else {
       const ordemApresentacao = row.total + 1; // Incrementar 1 para a nova tarefa
       const query = 'INSERT INTO tarefas (nome, custo, data_limite, ordem_apresentacao) VALUES (?, ?, ?, ?)';
-db.run(query, [novoNomeTarefa, custo, dataLimite, ordemApresentacao], function (err) {
-  if (err) {
-    console.error(err.message);
-    res.status(500).json({ error: 'Erro ao adicionar a tarefa' });
-  } else {
-    res.json({ id: this.lastID });
-  }
-});
-
+      db.run(query, [nome, custo, dataLimite, ordemApresentacao], function (err) {
+        if (err) {
+          console.error(err.message);
+          res.status(500).json({ error: 'Erro ao adicionar a tarefa' });
+        } else {
+          res.json({ id: this.lastID });
+        }
+      });
     }
   });
 });
@@ -60,8 +59,9 @@ db.run(query, [novoNomeTarefa, custo, dataLimite, ordemApresentacao], function (
 // Definir rota para atualizar uma tarefa pelo ID
 app.put('/:id', (req, res) => {
   const idTarefa = req.params.id;
-  const { nome, custo, dataLimite } = req.body;
+  const { nome, custo, dataLimite, ordemApresentacao } = req.body;
   const query = 'UPDATE tarefas SET nome = ?, custo = ?, data_limite = ? WHERE id = ?';
+
 
   db.run(query, [nome, custo, dataLimite, idTarefa], function (err) {
     if (err) {
