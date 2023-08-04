@@ -218,7 +218,7 @@ function exibirFormEditar(idTarefa, nomeTarefa, custoTarefa, dataLimiteTarefa) {
 
     const novoNomeTarefa = encodeURIComponent(document.getElementById('editarNomeTarefa').value);
     const novoCustoTarefa = parseFloat(document.getElementById('editarCustoTarefa').value);
-    const novaDataLimiteTarefa = document.getElementById('editarNomeTarefa').value;
+   const novaDataLimiteTarefa = document.getElementById('editarDataLimiteTarefa').value;
 
     axios.get('https://listatarefasfatto1-9765e8130ba4.herokuapp.com/api/tarefas')
       .then(response => {
