@@ -72,9 +72,10 @@ function carregarTarefas() {
           <button class="move-up-btn" onclick="moverTarefa(this.closest('tr'), 'up')">
           <i class="fas fa-chevron-up"></i> 
         </button>
-            <button id="editar-btn" data-nome="${(tarefa.nome)}" onclick="exibirFormEditar(${tarefa.id}, this.getAttribute('data-nome'), ${tarefa.custo}, '${tarefa.dataLimite}')">
-              <i class="fas fa-pencil-alt"></i> Editar
-            </button>
+        <button id="editar-btn" data-nome="${(tarefa.nome)}" onclick="exibirFormEditar(${tarefa.id}, this.getAttribute('data-nome'), ${tarefa.custo}, '${tarefa.data_limite}')">
+        <i class="fas fa-pencil-alt"></i> Editar
+      </button>
+      
             <button id="excluir-btn" onclick="excluirTarefa(${tarefa.id})">
               <i class="fas fa-trash"></i> Excluir
             </button>
@@ -206,10 +207,16 @@ function formatarData(dataString) {
 
 
 function exibirFormEditar(idTarefa, nomeTarefa, custoTarefa, dataLimiteTarefa) {
-  document.getElementById('editarNomeTarefa').value = decodeURIComponent(nomeTarefa);
-  document.getElementById('editarCustoTarefa').value = custoTarefa;
-  document.getElementById('editarDataLimiteTarefa').value = dataLimiteTarefa;
-  document.getElementById('idTarefaEditar').value = idTarefa;
+  const editarNomeTarefa = document.getElementById('editarNomeTarefa');
+  const editarCustoTarefa = document.getElementById('editarCustoTarefa');
+  const editarDataLimiteTarefa = document.getElementById('editarDataLimiteTarefa');
+  const idTarefaEditar = document.getElementById('idTarefaEditar');
+
+  editarNomeTarefa.value = decodeURIComponent(nomeTarefa);
+  editarCustoTarefa.value = custoTarefa;
+  editarDataLimiteTarefa.value = dataLimiteTarefa;
+
+  idTarefaEditar.value = idTarefa;
 
   formEditarTarefa.style.display = 'block';
 
@@ -218,8 +225,10 @@ function exibirFormEditar(idTarefa, nomeTarefa, custoTarefa, dataLimiteTarefa) {
 
     const novoNomeTarefa = encodeURIComponent(document.getElementById('editarNomeTarefa').value);
     const novoCustoTarefa = parseFloat(document.getElementById('editarCustoTarefa').value);
-   const novaDataLimiteTarefa = document.getElementById('editarDataLimiteTarefa').value;
+    const novaDataLimiteTarefa = document.getElementById('editarDataLimiteTarefa').value;
 
+
+    
     axios.get('https://listatarefasfatto1-9765e8130ba4.herokuapp.com/api/tarefas')
       .then(response => {
         const tarefas = response.data;
@@ -232,7 +241,7 @@ function exibirFormEditar(idTarefa, nomeTarefa, custoTarefa, dataLimiteTarefa) {
         const dadosTarefa = {
           nome: novoNomeTarefa,
           custo: novoCustoTarefa,
-          dataLimite: novaDataLimiteTarefa
+          dataLimite: formatarData(novaDataLimiteTarefa)
         };
 
         atualizarTarefa(idTarefa, dadosTarefa);
