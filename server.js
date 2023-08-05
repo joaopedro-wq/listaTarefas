@@ -20,14 +20,27 @@ app.use((req, res, next) => {
 // Configurar o middleware para servir arquivos estáticos na pasta "public"
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Definir rota para obter todas as tarefas
+
 app.get('/api/tarefas', (req, res) => {
-  db.all('SELECT * FROM tarefas ORDER BY ordem_apresentacao', (err, rows) => {
+  db.all('SELECT * FROM tarefas', (err, rows) => {
     if (err) {
       console.error(err.message);
       res.status(500).json({ error: 'Erro ao obter as tarefas' });
     } else {
       res.json(rows);
+    }
+  });
+});
+
+
+app.get('/api/tarefas/:id', (req, res) => {
+  const idTarefa = req.params.id;
+  db.get('SELECT * FROM tarefas WHERE id = ?', [idTarefa], (err, row) => {
+    if (err) {
+      console.error(err.message);
+      res.status(500).json({ error: 'Erro ao obter a tarefa' });
+    } else {
+      res.json(row);
     }
   });
 });
