@@ -205,7 +205,6 @@ function formatarData(dataString) {
   return `${dia}/${mes}/${ano}`;
 }
 
-
 function exibirFormEditar(idTarefa, nomeTarefa, custoTarefa, dataLimiteTarefa) {
   const editarNomeTarefa = document.getElementById('editarNomeTarefa');
   const editarCustoTarefa = document.getElementById('editarCustoTarefa');
@@ -252,12 +251,6 @@ function exibirFormEditar(idTarefa, nomeTarefa, custoTarefa, dataLimiteTarefa) {
   };
 }
 
-
-
-
-
-
-
 function editarTarefa(idTarefa) {
   console.log('Exibindo formulário de edição para a tarefa de ID:', idTarefa);
     axios.get('https://listatarefasfatto1-9765e8130ba4.herokuapp.com/api/tarefas')
@@ -270,10 +263,6 @@ function editarTarefa(idTarefa) {
     });
 }
 
-
-
-
-
 function atualizarTarefa(idTarefa, dadosTarefa) {
   axios.put(`https://listatarefasfatto1-9765e8130ba4.herokuapp.com/${idTarefa}`, dadosTarefa)
     .then(response => {
@@ -284,7 +273,6 @@ function atualizarTarefa(idTarefa, dadosTarefa) {
       console.error('Erro ao atualizar a tarefa:', error);
     });
 }
-
 
 function fecharFormEditar() {
   formEditarTarefa.style.display = 'none';
