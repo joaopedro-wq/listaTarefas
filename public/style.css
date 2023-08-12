@@ -180,7 +180,6 @@ tr {
 
 
 
-
 td:nth-child(2) {
   text-align: left;
   
@@ -248,11 +247,33 @@ Firebase Hosting
   cursor: grab;
 }
 
+
+
 #buttonEdicao{
 display: flex;
 float: left;
 
 
+}
+
+
+.move-up-btn, .move-down-btn {
+  background-color: #7bbdb4;
+  color: rgb(0, 0, 0);
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.move-up-btn:hover, .move-down-btn:hover {
+  background-color: #b9dad8;
+}
+
+
+.move-up-btn i, .move-down-btn i {
+  margin-right: 5px;
 }
 .btn-Salvar {
   display: flex;
