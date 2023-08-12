@@ -20,14 +20,28 @@ app.use((req, res, next) => {
 // Configurar o middleware para servir arquivos estáticos na pasta "public"
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Definir rota para obter todas as tarefas
+
+
 app.get('/api/tarefas', (req, res) => {
-  db.all('SELECT * FROM tarefas ORDER BY ordem_apresentacao', (err, rows) => {
+  db.all('SELECT * FROM tarefas', (err, rows) => {
     if (err) {
       console.error(err.message);
       res.status(500).json({ error: 'Erro ao obter as tarefas' });
     } else {
       res.json(rows);
+    }
+  });
+});
+
+
+app.get('/api/tarefas/:id', (req, res) => {
+  const idTarefa = req.params.id;
+  db.get('SELECT * FROM tarefas WHERE id = ?', [idTarefa], (err, row) => {
+    if (err) {
+      console.error(err.message);
+      res.status(500).json({ error: 'Erro ao obter a tarefa' });
+    } else {
+      res.json(row);
     }
   });
 });
@@ -73,6 +87,34 @@ app.put('/:id', (req, res) => {
   });
 });
 
+app.put('/api/atualizar-ordem', (req, res) => {
+  const ordensApresentacao = req.body;
+
+  try {
+    console.log('Recebendo requisição PUT para atualizar ordem...');
+    console.log('Ordens de Apresentação recebidas:', ordensApresentacao);
+
+    // Para cada ordem de apresentação na lista de ordensApresentacao, atualize a ordem no banco de dados
+    ordensApresentacao.forEach(async (ordem) => {
+      const { id, ordemApresentacao } = ordem;
+      const query = 'UPDATE tarefas SET ordem_apresentacao = ? WHERE id = ?';
+
+      console.log(`Atualizando ordem da tarefa com ID ${id} para ${ordemApresentacao}...`);
+      db.run(query, [ordemApresentacao, id], (err) => {
+        if (err) {
+          console.error(err.message);
+        } else {
+          console.log(`Ordem da tarefa com ID ${id} atualizada.`);
+        }
+      });
+    });
+
+    res.json({ message: 'Ordem das tarefas atualizada com sucesso.' });
+  } catch (error) {
+    console.error('Erro ao atualizar a ordem das tarefas:', error);
+    res.status(500).json({ error: 'Erro ao atualizar a ordem das tarefas.' });
+  }
+});
 
 // Definir rota para excluir uma tarefa pelo ID
 app.delete('/:id', (req, res) => {
@@ -87,6 +129,7 @@ app.delete('/:id', (req, res) => {
     }
   });
 });
+
 
 // Iniciar o servidor
 app.listen(port, () => {
