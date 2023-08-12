@@ -7,6 +7,13 @@ let draggedIndex;
 let ordemOriginalTarefas = [];
 
 
+function formatarData(dataString) {
+  const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+  const data = new Date(`${dataString}T00:00:00`);
+  return data.toLocaleDateString('pt-BR', options);
+}
+
+
 function excluirTarefa(idTarefa) {
   const confirmacao = window.confirm('Tem certeza que deseja excluir esta tarefa?');
   if (confirmacao) {
@@ -120,7 +127,7 @@ function atualizarOrdemNoServidor() {
     console.log('Resposta do servidor:', response.data);
     console.log('Ordem das tarefas atualizada com sucesso no servidor:', response.data);
 
-    // Armazenar a ordem das tarefas no Local Storage
+    
     localStorage.setItem('ordemApresentacao', JSON.stringify(ordensApresentacao));
   })
   .catch(error => {
@@ -151,7 +158,7 @@ function moverTarefa(index, direcao) {
       listaTarefas.appendChild(tarefa);
     });
 
-    atualizarOrdemNoServidor(); // Adicione esta linha
+    atualizarOrdemNoServidor(); 
   }
 }
 
@@ -210,13 +217,6 @@ function exibirMensagemErro(mensagem) {
   }, 5000); 
 }
 
-function formatarData(dataString) {
-  const data = new Date(dataString);
-  const dia = String(data.getDate()).padStart(2, '0');
-  const mes = String(data.getMonth() + 1).padStart(2, '0');
-  const ano = data.getFullYear();
-  return `${dia}/${mes}/${ano}`;
-}
 
 
 function exibirFormEditar(idTarefa, nomeTarefa, custoTarefa, dataLimiteTarefa) {
