@@ -2,7 +2,7 @@ const formularioTarefa = document.getElementById('formularioTarefa');
 const listaTarefas = document.getElementById('listaTarefas');
 const formEditarTarefa = document.getElementById('formEditarTarefa');
 const formEditar = document.getElementById('formEditar');
-const apiBaseUrl = 'https://listatarefasfatto1-9765e8130ba4.herokuapp.com/';
+const apiBaseUrl = 'https://listatarefasfatto1-9765e8130ba4.herokuapp.com';
 let draggedIndex; 
 let ordemOriginalTarefas = [];
 
